@@ -1,0 +1,13 @@
+<div class="p-4 h-full flex flex-col justify-between">
+      <div class="overflow-y-auto flex-1 mb-4">
+        <div *ngFor="let msg of messages()" class="mb-2">
+          <p><strong>You:</strong> {{ msg.user }}</p>
+          <p class="text-gray-600"><strong>AI:</strong> {{ msg.ai }}</p>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center">
+        <input [(ngModel)]="message" placeholder="Message to your AI" class="flex-1 border rounded p-2" />
+        <button class="bg-green-500 text-white px-4 py-2 rounded" (click)="send()">Send</button>
+      </div>
+    </div>

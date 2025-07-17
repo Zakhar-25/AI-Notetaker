@@ -1,0 +1,15 @@
+<div class="p-4 border rounded-lg shadow-md max-w-md mx-auto my-4">
+  <h2 class="text-lg font-bold mb-2">Введіть свій OpenAI API ключ:</h2>
+  <input
+    type="password"
+    [(ngModel)]="apiKey"
+    placeholder="Введіть API ключ..."
+    class="border p-2 w-full mb-2 rounded"
+  />
+  <button
+    (click)="saveKey()"
+    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+  >
+    Зберегти ключ
+  </button>
+</div>

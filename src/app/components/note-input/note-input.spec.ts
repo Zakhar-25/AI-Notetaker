@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoteInput } from './note-input';
+import { NoteInputComponent } from './note-input.component';
 
 describe('NoteInput', () => {
-  let component: NoteInput;
-  let fixture: ComponentFixture<NoteInput>;
+  let component: NoteInputComponent;
+  let fixture: ComponentFixture<NoteInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoteInput]
+      imports: [NoteInputComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NoteInput);
+    fixture = TestBed.createComponent(NoteInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,6 @@
+<app-api-key *ngIf="!hasKey"></app-api-key>
+<div *ngIf="hasKey">
+  <app-note-list></app-note-list>
+  <app-note-input></app-note-input>
+  <app-note-result></app-note-result>
+</div>

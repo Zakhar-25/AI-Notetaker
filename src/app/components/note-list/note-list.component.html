@@ -1,1 +1,8 @@
-<p>note-list works!</p>
+<div class="p-4 border-r h-full overflow-y-auto">
+      <h2 class="font-bold mb-4">Notes</h2>
+      <div *ngFor="let note of noteService.notes(); let i = index" class="mb-2">
+        <strong>Note {{ i + 1 }}</strong>
+        <p class="text-sm text-gray-600">{{ note }}</p>
+      </div>
+    </div>
+

@@ -1,11 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NoteService } from '../../services/note.service';
 
 @Component({
   selector: 'app-note-input',
-  imports: [],
-  templateUrl: './note-input.html',
-  styleUrl: './note-input.scss'
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './note-input.component.html',
+  styles: [':host { width: 50%; }']
 })
-export class NoteInput {
+export class NoteInputComponent {
+  noteService = inject(NoteService);
+  input = '';
 
+  addNote() {
+    if (this.input.trim()) {
+      this.noteService.addNote(this.input);
+      this.input = '';
+    }
+  }
 }
