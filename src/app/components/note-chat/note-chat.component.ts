@@ -1,35 +1,48 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, signal, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { OpenAiService } from '../../services/open-ai.service';
+import { ApiKeyService } from '../../services/api-key.service';
 
 @Component({
   selector: 'app-note-chat',
   templateUrl: './note-chat.component.html',
   standalone: true,
-  imports: []
+  imports: [CommonModule, FormsModule]
 })
+export class NoteChatComponent {
+  openAiService = inject(OpenAiService);
+  apiKeyService = inject(ApiKeyService);
 
-@Injectable({
-  providedIn: 'root'
-})
-export class OpenAiService {
-  private apiUrl = environment.apiUrl;
+  message = '';
+  messages = signal<{ user: string; ai: string }[]>([]);
 
-  constructor(private http: HttpClient) {}
+  send() {
+    const apiKey = this.apiKeyService.getApiKey();
+    if (!apiKey || !this.message.trim()) return;
 
-  sendMessage(prompt: string, apiKey: string): Observable<any> {
-    const headers = {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
-    };
+    const userMsg = this.message;
+    this.message = '';
+    this.messages.update(msgs => [...msgs, { user: userMsg, ai: '...' }]);
 
-    const body = {
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }]
-    };
-
-    return this.http.post<any>(this.apiUrl, body, { headers });
+    this.openAiService.sendMessage(userMsg, apiKey).subscribe({
+      next: (res) => {
+        const aiReply = res?.choices?.[0]?.message?.content || '(No response)';
+        this.messages.update(msgs => {
+          const updated = [...msgs];
+          updated[updated.length - 1].ai = aiReply;
+          return updated;
+        });
+      },
+      error: (err) => {
+        this.messages.update(msgs => {
+          const updated = [...msgs];
+          updated[updated.length - 1].ai = '(Error)';
+          return updated;
+        });
+        console.error('AI request failed:', err);
+      }
+    });
   }
 }
+

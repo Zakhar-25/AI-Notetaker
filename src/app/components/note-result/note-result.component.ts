@@ -13,5 +13,3 @@ import { NoteService } from '../../services/note.service';
 export class NoteResultComponent {
   constructor(public noteService: NoteService) {}
 }
-
-export class NoteInputComponent {}

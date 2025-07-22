@@ -13,7 +13,7 @@ export class ApiKeyComponent {
   apiKey: string = '';
 
   constructor(private apiKeyService: ApiKeyService) {
-    this.apiKey = this.apiKeyService.getApiKey();
+    this.apiKey = this.apiKeyService.getApiKey() ?? '';
   }
 
   saveKey() {
