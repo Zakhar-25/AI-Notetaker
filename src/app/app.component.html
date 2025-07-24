@@ -1,9 +1,14 @@
 <app-api-key *ngIf="!hasKey"></app-api-key>
-<div *ngIf="hasKey" class="flex flex-col h-screen">
-  <div class="flex flex-1">
-    <app-note-list></app-note-list>
+<style styleurl="src/app/app.component.scss"></style>
+<div *ngIf="hasKey" class="main" id="main">
+  <div id="app-note-list" class="app-note-list">
+      <app-note-list></app-note-list>
+  </div>
+  <div id="app-note-input-result" class="app-note-input-result">
     <app-note-input></app-note-input>
     <app-note-result></app-note-result>
   </div>
-  <app-note-chat class="border-t h-1/3"></app-note-chat>
+  <div id="app-note-chat" class="app-note-chat">
+    <app-note-chat></app-note-chat>
+  </div>
 </div>

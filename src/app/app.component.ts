@@ -11,6 +11,7 @@ import { NoteChatComponent } from './components/note-chat/note-chat.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [ 
     CommonModule,
